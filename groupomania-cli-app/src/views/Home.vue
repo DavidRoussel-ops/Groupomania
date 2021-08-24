@@ -1,8 +1,9 @@
 <template>
   <div class="home">
     <img id="fond" alt="Groupomania logo" src="../assets/icon.png">
-    <label id="id" for="mail">Email</label><input id="mail" type="email">
-    <label id="mdp" for="pass">Mots de passe</label><input id="pass" type="password">
+    <label id="nid" for="email">Email</label><input id="email" type="email">
+    <label id="modp" for="mpass">Mots de passe</label><input id="mpass" type="password">
+    <button id="btn" type="submit">Connexion</button>
   </div>
 </template>
 
@@ -31,32 +32,39 @@ img{
   position: relative;
 }
 
-#mail{
+#email{
   width: 20%;
   position: absolute;
   left: 40%;
   top: 40%;
 }
 
-#pass {
+#mpass {
   width: 20%;
   position: absolute;
   left: 40%;
   top: 50%;
 }
 
-#id {
+#nid {
   width: 20%;
   position: absolute;
   left: 40%;
   top: 35%;
 }
 
-#mdp {
+#modp {
   width: 20%;
   position: absolute;
   left: 40%;
   top: 45%;
+}
+
+#btn{
+  width: 10%;
+  position: absolute;
+  left: 45%;
+  top: 60%;
 }
 </style>
 
