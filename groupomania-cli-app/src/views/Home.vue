@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="connexion">
     <img id="fond" alt="Groupomania logo" src="../assets/icon.png">
     <label id="nid" for="email">Email</label><input id="email" type="email">
     <label id="modp" for="mpass">Mots de passe</label><input id="mpass" type="password">
