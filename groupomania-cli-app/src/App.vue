@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <router-link to="/">Connexion</router-link> |
-    <router-link to="/inscription">Inscrisption</router-link>
+    <router-link to="/inscription">Inscrisption</router-link> |
+    <router-link to="/Groupomania">Groupomania</router-link>
   </div>
   <router-view/>
 </template>
