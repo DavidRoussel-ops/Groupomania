@@ -8,17 +8,7 @@
 </template>
 
 <script>
-  /*export default {
-    data() {
-      return alert('salut')
-    },
-    beforeCreate() {console.log('Je ne suis pas encore crée')},
-    created() {console.log('Je suis crée')},
-    beforeMount() {console.log('Je vais bientot être sur le dom')},
-    mounted() {console.log('Je suis sur le DOM')},
-    beforeUnmount() {console.log('Je vais disparaitre')},
-    unmounted() {console.log('Je suis supprimé')}
-  }*/
+
 </script>
 
 <style>
