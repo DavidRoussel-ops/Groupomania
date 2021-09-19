@@ -3,10 +3,8 @@
     <img alt="Groupomania logo" src="../assets/icon.png">
     <label id="id" for="mail">Email</label><input id="mail" type="email">
     <label id="mdp" for="pass">Mots de passe</label><input id="pass" type="password">
-    <label id="fonction" for="poste">Poste</label><input id="poste" type="text">
     <label id="surname" for="nom">Nom</label><input id="nom" type="text">
     <label id="name" for="prenom">Prénom</label><input id="prenom" type="text">
-    <label id="old" for="age">Age</label><input id="age" type="number">
     <button id="btninc" type="submit">Inscription</button>
   </div>
 </template>
@@ -50,20 +48,6 @@ img{
   top: 45%;
 }
 
-#fonction {
-  width: 20%;
-  position: absolute;
-  left: 20%;
-  top: 55%;
-}
-
-#poste {
-  width: 20%;
-  position: absolute;
-  left: 20%;
-  top: 60%;
-}
-
 #surname{
   width: 20%;
   position: absolute;
@@ -90,20 +74,6 @@ img{
   position: absolute;
   left: 60%;
   top: 50%;
-}
-
-#old{
-  width: 20%;
-  position: absolute;
-  left: 60%;
-  top: 55%;
-}
-
-#age{
-  width: 20%;
-  position: absolute;
-  left: 60%;
-  top: 60%;
 }
 
 #btninc{
