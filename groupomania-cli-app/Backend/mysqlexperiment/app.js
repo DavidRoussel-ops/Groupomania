@@ -1,5 +1,5 @@
-const mysql = require('mysql');
-const connection = mysql.createConnection({
+const app = require('mysql');
+const connection = app.createConnection({
     host : 'localhost',
     user : 'stephanie',
     password : 'Stephgroupo',
@@ -13,4 +13,4 @@ connection.query('SELECT 1 + 1 AS solution', function (error, results, fields){
     console.log('La solution est : ', results[0].solution);
 });
 
-connection.end();uu
+connection.end();
