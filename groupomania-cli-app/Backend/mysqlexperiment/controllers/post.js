@@ -1,3 +1,4 @@
+const connection = require('../Security/mysql');
 const Post = require('../models/post');
 
 exports.createPost = (req, res, next) => {
@@ -14,7 +15,7 @@ exports.createPost = (req, res, next) => {
 
 exports.updatePost = (req, res, next) => {
     const postUpdate = req.query;
-    const updatePost = "UPDATE post SET ?";
+    const updatePost = "UPDATE post SET txt=postUpdate, img=postUpdate WHERE id=postUpdate";
     const postUp = Post({
         ...postUpdate
     })
@@ -26,7 +27,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
     const postDelete = req.query;
-    const deletePost = "DELETE FROM post SET ?";
+    const deletePost = "DELETE FROM post WHERE id=postDelete";
     const postDel = Post({
         ...postDelete
     })
