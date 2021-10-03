@@ -1,23 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-
-const postRoutes = require('./routes/post');
-const userRoutes = require('./routes/user');
-
+const express = require('express')
+const bodyParser = require('body-parser')
+const mysql = require('./Security/mysql');
 const app = express();
-
-const mysql = require('mysql');
-const connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'stephanie',
-    password : 'Stephgroupo',
-    database : 'groupomania'
-});
-
-connection.connect((err) => {
-    if (err) throw err;
-    console.log('Connecter à MySQL Server!');
-});
+app.use(bodyParser.json());
 
 app.use(((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -26,6 +11,12 @@ app.use(((req, res, next) => {
     next();
 }));
 
-app.use(bodyParser.json());
+const postRoutes = require('./routes/post');
+const userRoutes = require('./routes/user');
+const comRoutes = require('./routes/com');
+
+app.use('/post', postRoutes);
+app.use('/user', userRoutes);
+app.use('/com', comRoutes);
 
 module.exports = app;
