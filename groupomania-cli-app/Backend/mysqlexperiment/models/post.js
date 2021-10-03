@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 let CURRENT_TIMESTAMP = mysql.raw('now()');
 const postSchema = {
-    id : {type : String, required : true},
+    id : {type : String, required : true, unique : true},
     users : {type : String, required: true},
     nom : {type : String, required : true},
     prenom : {type : String, required : true},
