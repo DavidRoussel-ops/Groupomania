@@ -1,3 +1,4 @@
+const connection = require('../Security/mysql');
 const User = require('../models/user')
 
 exports.createUser = (req, res, next) => {
@@ -14,7 +15,7 @@ exports.createUser = (req, res, next) => {
 
 exports.updateUser = (req, res, next) => {
     const userUpdate = req.query;
-    const updateUser = "UPDATE users SET ?";
+    const updateUser = "UPDATE users SET nom=userUpdate, prenom=userUpdate WHERE id=userUpdate";
     const update = User({
         ...userUpdate
     })
@@ -26,7 +27,7 @@ exports.updateUser = (req, res, next) => {
 
 exports.deleteUser = (req, res, next) => {
     const userDelete = req.query;
-    const deleteUser = "DELETE FROM users SET ?";
+    const deleteUser = "DELETE FROM users WHERE id=userDelete";
     const suppression = User({
         ...userDelete
     })
