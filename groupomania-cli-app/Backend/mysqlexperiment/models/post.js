@@ -1,13 +1,61 @@
-const mysql = require('mysql');
-let CURRENT_TIMESTAMP = mysql.raw('now()');
-const postSchema = {
-    id : {type : String, required : true, unique : true},
-    users : {type : String, required: true},
-    nom : {type : String, required : true},
-    prenom : {type : String, required : true},
-    date_diff : CURRENT_TIMESTAMP,
-    txt : {type : String, required : false},
-    img : {type : String, required : false},
+const connection = require('../Security/mysql');
+
+exports.getPost = (result) => {
+    connection.query('SELECT * FROM post', (err, results) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            console.log({post : results});
+            result(null, results);
+        }
+    })
 }
 
-module.exports = postSchema;
+exports.getPostById = (id, result) => {
+    connection.query('SELECT * FROM post WHERE id = ?', [id], (err, results) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            console.log({postId : results});
+            result(null, results[0]);
+        }
+    })
+}
+
+exports.insertPost = (data, result) => {
+    connection.query('INSERT INTO post SET ?', [data], (err, results) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            console.log({postInsert : results});
+            result(null, results);
+        }
+    })
+}
+
+exports.updatePostById = (data, id, result) => {
+    connection.query('UPDATE post SET nom = ?, prenom = ?, date_diff = CURRENT_TIMESTAMP, txt = ?, img = ? WHERE id = ?', [data.nom, data.prenom, data.date_diff, data.txt, data.img, id], (err, results) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            console.log({postUpdate : results});
+            result(null, results);
+        }
+    })
+}
+
+exports.deletePostById = (id, result) => {
+    connection.query('DELETE FROM post WHERE id = ?', [id], (err, results) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            console.log({postdelete : results});
+            result(null, results);
+        }
+    })
+}
