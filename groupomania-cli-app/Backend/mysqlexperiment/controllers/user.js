@@ -1,38 +1,65 @@
-const connection = require('../Security/mysql');
-const User = require('../models/user')
+const {getUser, getUserById, insertUser, updateUserById, deleteUserById} = require("../models/user");
 
-exports.createUser = (req, res, next) => {
-    const userInsert = req.query;
-    const insertUser = "INSERT INTO users SET ?";
-    const insert = new User({
-        ...userInsert
-    })
-    connection.query(insertUser,insert,(err,result,fields) => {
-        if (err) throw err;
-        res.json({saved : result.affectedRows})
+exports.showUser = (req, res) => {
+    getUser((err, results) => {
+        if (err) {
+            res.send(err);
+            console.log(err)
+        } else {
+            res.json(results);
+            console.log({user : results})
+        }
     });
 };
 
-exports.updateUser = (req, res, next) => {
-    const userUpdate = req.query;
-    const updateUser = "UPDATE users SET nom=userUpdate, prenom=userUpdate WHERE id=userUpdate";
-    const update = User({
-        ...userUpdate
-    })
-    connection.query(updateUser,update,(err,result,fields) => {
-        if (err) throw err;
-        res.json({update : result.affectedRows})
+exports.showUserById = (req, res) => {
+    getUserById(req.params.id, (err, results) => {
+        if (err) {
+            res.send(err);
+            console.log(err)
+        } else {
+            res.json(results);
+            console.log({userId : results})
+        }
     });
 };
 
-exports.deleteUser = (req, res, next) => {
-    const userDelete = req.query;
-    const deleteUser = "DELETE FROM users WHERE id=userDelete";
-    const suppression = User({
-        ...userDelete
-    })
-    connection.query(deleteUser,suppression,(err,result,fields) => {
-        if (err) throw err;
-        res.json({delete : result.affectedRows})
+exports.createUser = (req, res) => {
+    const data = req.body;
+    insertUser(data, (err, results) => {
+        if (err) {
+            res.send(err);
+            console.log(err)
+        } else {
+            res.json(results);
+            console.log({userCreate : results})
+        }
+    });
+};
+
+exports.updateUser = (req, res) => {
+    const data = req.body;
+    const id = req.params.id;
+    updateUserById(data, id,(err, results) => {
+        if (err) {
+            res.send(err);
+            console.log(err)
+        } else {
+            res.json(results);
+            console.log({userUpdate : results})
+        }
+    });
+};
+
+exports.deleteUser = (req, res) => {
+    const id = req.params.id;
+    deleteUserById(id, (err, results) => {
+        if (err) {
+            res.send(err);
+            console.log(err)
+        } else {
+            res.json(results);
+            console.log({userdelete : results})
+        }
     });
 };
