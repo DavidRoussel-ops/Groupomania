@@ -1,15 +1,8 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Connexion</router-link> |
-    <router-link to="/inscription">Inscrisption</router-link> |
-    <router-link to="/Groupomania">Groupomania</router-link>
-  </div>
   <router-view/>
 </template>
 
 <script>
-
-
 </script>
 
 <style lang="scss">
@@ -20,14 +13,11 @@
   text-align: center;
   color: #2c3e50;
 }
-
 #nav {
   padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;
-
     &.router-link-exact-active {
       color: #42b983;
     }
