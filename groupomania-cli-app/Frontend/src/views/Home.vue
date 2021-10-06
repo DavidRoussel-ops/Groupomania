@@ -6,30 +6,57 @@
     <p class="nocount" v-if="mode === 'login'">Pas de compte? <a href="#" class="count_action" @click="switchToCreateCount()">Créer un compte.</a></p>
     <p class="nocount" v-else>Déjà de compte? <a href="#" class="count_action" @click="switchToLogin()">Se connecter.</a></p>
     <label for="email">Email</label><input v-model="email" id="email" type="email" placeholder="email">
-    <label for="mpass"></label><input v-model="password" id="mpass" type="password" placeholder="mots de passe">
+    <label for="mpass"></label><input v-model="mots_de_passe" id="mpass" type="password" placeholder="mots de passe">
     <label for="nom">Nom</label><input v-model="nom" id="nom" type="text" placeholder="Nom" v-if="mode === 'create'">
     <label for="prenom">Prénom</label><input v-model="prenom" id="prenom" type="text" placeholder="Prénom" v-if="mode === 'create'">
-    <button class="btn" v-if="mode === 'login'">Connexion</button>
-    <button class="btn" v-else>Inscription</button>
+    <button @click="login()" class="button" v-if="mode === 'login'">Connexion</button>
+    <button @click="createCount()" class="button" v-else>Inscription</button>
   </div>
 </template>
 
 <script>
 export default {
-  name : 'Home',
-  data : function () {
+  name: 'Home',
+  data: function () {
     return {
-      mode : 'login',
+      mode: 'login',
+      email: '',
+      mots_de_passe: '',
+      nom: '',
+      prenom: '',
     }
   },
-  methods : {
-    switchToCreateCount : function () {
+  computed: {},
+  methods: {
+    switchToCreateCount: function () {
       this.mode = 'create';
     },
-    switchToLogin : function () {
+    switchToLogin: function () {
       this.mode = 'login';
+    },
+    login: function () {
+      this.$store.dispatch('login', {
+        email: this.email,
+        mots_de_passe: this.mots_de_passe,
+      }).then(function (response) {
+        console.log(response)
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
-  }
+  },
+  createCount: function () {
+    this.$store.dispatch('createCount', {
+      email: this.email,
+      mots_de_passe: this.mots_de_passe,
+      nom: this.nom,
+      prenom: this.prenom,
+    }).then(function (response) {
+      console.log(response)
+    }).catch(function (error) {
+      console.log(error)
+    })
+  },
 }
 </script>
 
@@ -90,7 +117,7 @@ img{
   top: 50%;
 }
 
-.btn{
+.button{
   width: 10%;
   position: absolute;
   left: 45%;
