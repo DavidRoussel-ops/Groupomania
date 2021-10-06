@@ -25,7 +25,7 @@ exports.getUserById = (id, result) => {
 };
 
 exports.insertUser = (data, result) => {
-    connection.query('INSERT INTO users SET ?', [data], (err, results) => {
+    connection.query('INSERT INTO users SET id = ?', [data], (err, results) => {
         if (err) {
             console.log(err);
             result(err, null);
