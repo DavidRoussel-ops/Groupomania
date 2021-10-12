@@ -1,39 +1,15 @@
-const connection = require('../Security/mysql');
+const db = require('../Security/mysql');
 
-exports.getUser = (result) => {
-    connection.query('SELECT * FROM users', (err , results) => {
-        if (err) {
-            console.log(err);
-            result(err, null);
-        } else {
-            console.log({users : results});
-            result(null, results);
-        }
-    });
+exports.getUser = (req, res) => {
+
 };
 
 exports.getUserById = (id, result) => {
-    connection.query('SELECT * FROM users WHERE id = ?', [id], (err, results) => {
-        if (err) {
-            console.log(err);
-            result(err, null);
-        } else {
-            console.log({userId : results});
-            result (null, results[0]);
-        }
-    });
+
 };
 
-exports.insertUser = (data, result) => {
-    connection.query('INSERT INTO users SET id = ?', [data], (err, results) => {
-        if (err) {
-            console.log(err);
-            result(err, null);
-        } else {
-            console.log({userInsert : results});
-            result (null, results)
-        }
-    });
+exports.insertUser = (req , res) => {
+
 };
 
 exports.updateUserById = (data, id, result) => {
