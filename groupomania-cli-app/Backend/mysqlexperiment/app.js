@@ -19,7 +19,7 @@ const userRoutes = require('./routes/user');
 const comRoutes = require('./routes/com');
 
 app.use('/groupomania', postRoutes);
-app.use('/groupomania', userRoutes);
+app.use('/user', userRoutes);
 app.use('/groupomania', comRoutes);
 
 module.exports = app;
