@@ -1,38 +1,44 @@
+const db = require('../Security/mysql');
 const {getUser, getUserById, insertUser, updateUserById, deleteUserById} = require("../models/user");
 
 exports.showUser = (req, res) => {
-    getUser((err, results) => {
+    db.query('SELECT * FROM utilisateur', (err , results) => {
         if (err) {
-            res.send(err);
-            console.log(err)
+            console.log(err);
+            res.status(400).json({message : 'Oups !'});
         } else {
-            res.json(results);
-            console.log({user : results})
+            console.log({users : results});
+            res.status(200).json({message : results});
         }
     });
 };
 
 exports.showUserById = (req, res) => {
-    getUserById(req.params.id, (err, results) => {
+    let id = req.params.id;
+    db.query('SELECT * FROM utilisateur WHERE id =?', [id], (err, results) => {
         if (err) {
-            res.send(err);
-            console.log(err)
+            console.log(err);
+            res.status(400).json({message : 'Oups !'});
         } else {
-            res.json(results);
-            console.log({userId : results})
+            console.log({users : results});
+            res.status(200).json({message : results});
         }
     });
 };
 
 exports.createUser = (req, res) => {
-    const data = req.body;
-    insertUser(data, (err, results) => {
+    let email = req.body.mail;
+    let mdp = req.body.pass;
+    let lastname = req.body.lname;
+    let firstname = req.body.fname;
+    let insertUser = "INSERT INTO utilisateur (mail, pass, lname, fname) VALUES ('"+email+"','"+mdp+"','"+lastname+"','"+firstname+"')";
+    db.query(insertUser, (err, results) => {
         if (err) {
-            res.send(err);
-            console.log(err)
+            console.log(err);
+            res.status(400).json({message : "Oups!"})
         } else {
-            res.json(results);
-            console.log({userCreate : results})
+            console.log({userInsert : results});
+            res.status(201).json({message : "utilisateur crée!!"})
         }
     });
 };
