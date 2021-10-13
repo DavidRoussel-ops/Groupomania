@@ -13,6 +13,7 @@ app.use(((req, res, next) => {
 }));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended : true }));
 
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
