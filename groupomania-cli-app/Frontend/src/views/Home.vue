@@ -36,8 +36,8 @@ export default {
     },
     login: function () {
       this.$store.dispatch('login', {
-        email: this.email,
-        mots_de_passe: this.mots_de_passe,
+        mail: this.mail,
+        pass: this.pass,
       }).then(function (response) {
         console.log(response)
       }).catch(function (error) {
