@@ -4,7 +4,7 @@ const userToken = require('../Security/token');
 const {signup, login, showUser, showUserById, updateUser, deleteUser} = require("../controllers/user");
 
 router.get('/all', showUser);
-router.get('/:id', userToken, showUserById);
+router.get('/info', userToken, showUserById);
 router.post('/create', signup);
 router.post('/login', login);
 router.put('/update', userToken, updateUser);
