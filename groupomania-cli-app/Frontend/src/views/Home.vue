@@ -9,12 +9,17 @@
     <label for="mpass"></label><input v-model="pass" id="mpass" type="password" placeholder="mots de passe">
     <label for="nom">Nom</label><input v-model="lname" id="nom" type="text" placeholder="Nom" v-if="mode === 'create'">
     <label for="prenom">Prénom</label><input v-model="fname" id="prenom" type="text" placeholder="Prénom" v-if="mode === 'create'">
-    <button @click="login" class="button" v-if="mode === 'login'">Connexion</button>
+    <p class="wrongLog" v-if="mode === 'login' && status === 'error_login'">Addresse mail ou mots de passe invalide</p>
+    <button @click="login" class="button" v-if="mode === 'login'">
+      <span v-if="status === 'loading'">Connexion en cours...</span>
+      <span v-else>Connexion</span>
+    </button>
     <button @click="createAccount" class="button" v-else>Inscription</button>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: 'Home',
   data: function () {
@@ -26,7 +31,9 @@ export default {
       fname: '',
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['status'])
+  },
   methods: {
     switchToCreateCount: function () {
       this.mode = 'create';
@@ -35,11 +42,12 @@ export default {
       this.mode = 'login';
     },
     login: function () {
+      const self = this;
       this.$store.dispatch('login', {
         mail: this.mail,
         pass: this.pass,
-      }).then(function (response) {
-        console.log(response)
+      }).then(function () {
+        self.$router.push('/groupomania');
       }).catch(function (error) {
         console.log(error)
       })
@@ -124,6 +132,14 @@ img{
   position: absolute;
   left: 45%;
   top: 60%;
+}
+
+.wrongLog {
+  width: 10%;
+  position: absolute;
+  left: 45%;
+  top: 45%;
+  color: red;
 }
 </style>
 
