@@ -10,10 +10,8 @@
     <label for="nom">Nom</label><input v-model="lname" id="nom" type="text" placeholder="Nom" v-if="mode === 'create'">
     <label for="prenom">Prénom</label><input v-model="fname" id="prenom" type="text" placeholder="Prénom" v-if="mode === 'create'">
     <p class="wrongLog" v-if="mode === 'login' && status === 'error_login'">Addresse mail ou mots de passe invalide</p>
-    <button @click="login" class="button" v-if="mode === 'login'">
-      <span v-if="status === 'loading'">Connexion en cours...</span>
-      <span v-else>Connexion</span>
-    </button>
+    <p class="wrongCreate" v-if="mode === 'create' && status === 'error_create'">email ou mots de passe déjà utilisée</p>
+    <button @click="login" class="button" v-if="mode === 'login'">Connexion</button>
     <button @click="createAccount" class="button" v-else>Inscription</button>
   </div>
 </template>
@@ -53,13 +51,14 @@ export default {
       })
     },
     createAccount: function () {
+      const self = this;
       this.$store.dispatch('createAccount', {
         mail: this.mail,
         pass: this.pass,
         lname: this.lname,
         fname: this.fname,
-      }).then(function (response) {
-        console.log(response)
+      }).then(function () {
+        self.login();
       }).catch(function (error) {
         console.log(error)
       })
@@ -139,6 +138,14 @@ img{
   position: absolute;
   left: 45%;
   top: 45%;
+  color: red;
+}
+
+.wrongCreate{
+  width: 20%;
+  position: absolute;
+  left: 45%;
+  top: 65%;
   color: red;
 }
 </style>
