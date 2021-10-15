@@ -6,7 +6,6 @@ const instance = axios.create({
     baseURL : 'http://localhost:3000/user',
 });
 
-
 const store = createStore({
     state : {
         status : '',
@@ -27,6 +26,7 @@ const store = createStore({
         },
         logUser : function (state, user) {
             instance.defaults.headers.common['Authorization'] = user.token;
+            localStorage.setItem('user', user);
             state.user = user;
         },
         userInfos: function (state, userInfos) {
@@ -64,14 +64,16 @@ const store = createStore({
             });
         },
         getUserInfos: ({commit}) => {
-            instance.get('/info')
-                .then(function (response) {
-                    commit('userInfos', response.data);
-                    console.log(response);
-                })
-                .catch(function (erreur) {
-                    console.log(erreur);
-                })
+            return new Promise(((resolve, reject) => {
+                instance.get('/info')
+                    .then(function (response) {
+                        commit('userInfos', response.data);
+                        resolve(response);
+                    })
+                    .catch(function (erreur) {
+                        reject(erreur);
+                    })
+            }))
         }
     }
 })
