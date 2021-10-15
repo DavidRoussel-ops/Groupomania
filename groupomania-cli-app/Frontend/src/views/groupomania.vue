@@ -14,7 +14,7 @@ export default {
   mounted() {
     console.log(this.$store.state.user);
     if (this.$store.state.user.token === '') {
-      this.$router.push('/');
+      this.$router.push('/info');
     }
     this.$store.dispatch('getUserInfos');
   }
