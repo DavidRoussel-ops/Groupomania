@@ -17,10 +17,10 @@ exports.signup = (req, res) => {
                     return res.status(400).json(err);
                 } else {
                     console.log("1 utilisateur enregistrer");
-                    db.query(`SELECT * FROM utilisateur WHERE mail = '${req.body.mail}'`, function (err, result) {
+                    db.query("SELECT * FROM utilisateur WHERE mail = '${req.body.mail}'", function (err, result) {
                         return res.status(201).json({
                             token: jwt.sign(
-                                { userId: result[0].id },
+                                { userId: result[0] },
                                 jwtSecurity,
                                 { expiresIn: '24h' }
                             ),
@@ -75,7 +75,7 @@ exports.showUserById = (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, jwtSecurity);
     const userId = decodedToken.userId;
-    db.query(`SELECT utilisateur.mail, utilisateur.lname, utilisateur.fname FROM utilisateur WHERE utilisateur.id =  ?`, [userId], function (err, result) {
+    db.query(`SELECT utilisateur.mail, utilisateur.lname, utilisateur.fname, post.id, post.date, post.com, post.img FROM utilisateur LEFT JOIN post ON utilisateur.id = post.user_id WHERE utilisateur.id =  ?`, [userId], function (err, result) {
         if (err) {
             console.log(err);
             return res.status(400).json("Utilsateur non trouvé!");
