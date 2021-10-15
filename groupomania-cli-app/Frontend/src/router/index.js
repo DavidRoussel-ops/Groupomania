@@ -9,7 +9,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/groupomania',
+    path: '/info',
     name: 'Groupomania',
     component: groupomania
   },
