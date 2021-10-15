@@ -45,7 +45,7 @@ export default {
         mail: this.mail,
         pass: this.pass,
       }).then(function () {
-        self.$router.push('/groupomania');
+        self.$router.push('/info');
       }).catch(function (error) {
         console.log(error)
       })
