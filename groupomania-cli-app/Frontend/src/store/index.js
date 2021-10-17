@@ -6,14 +6,31 @@ const instance = axios.create({
     baseURL : 'http://localhost:3000/user',
 });
 
+let user = localStorage.getItem('user');
+if (!user) {
+    user = {
+        userId : '',
+        token : '',
+    };
+} else {
+    try {
+        user = JSON.parse(user);
+        instance.defaults.headers.common['Authorization'] = user.token;
+    } catch (ex) {
+        user = {
+            userId : '',
+            token : '',
+        };
+    }
+
+}
+
 const store = createStore({
     state : {
         status : '',
-        user : {
-            userId : '',
-            token : '',
-        },
+        user : user,
         userInfos : {
+            mail : '',
             lname : '',
             fname : '',
         },
@@ -24,11 +41,18 @@ const store = createStore({
         },
         logUser : function (state, user) {
             instance.defaults.headers.common['Authorization'] = user.token;
-            localStorage.setItem('user', user);
+            localStorage.setItem('user', JSON.stringify(user));
             state.user = user;
         },
         userInfos: function (state, userInfos) {
             state.userInfos = userInfos;
+        },
+        logout : function (state) {
+            state.user = {
+                userId : '',
+                token : '',
+            }
+            localStorage.removeItem('user');
         }
     },
     actions : {
@@ -62,16 +86,14 @@ const store = createStore({
             });
         },
         getUserInfos: ({commit}) => {
-            return new Promise(((resolve, reject) => {
-                instance.get('/info')
-                    .then(function (response) {
-                        commit('userInfos', response.data);
-                        resolve(response);
-                    })
-                    .catch(function (erreur) {
-                        reject(erreur);
-                    })
-            }))
+            instance.get('/info')
+                .then(function (response) {
+                    commit('userInfos', response.data.user);
+                        console.log(response);
+                })
+                .catch(function (erreur) {
+                    console.log(erreur);
+                });
         }
     }
 })
