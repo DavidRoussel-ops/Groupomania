@@ -29,6 +29,13 @@ export default {
       fname: '',
     }
   },
+  mounted() {
+    console.log(this.$store.state.user);
+    if (this.$store.state.user.userId !== '') {
+      this.$router.push('/info');
+      return;
+    }
+  },
   computed: {
     ...mapState(['status'])
   },
