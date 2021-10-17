@@ -13,10 +13,6 @@ export default {
   name: 'groupomania',
   mounted() {
     console.log(this.$store.state.user);
-    if (this.$store.state.user.token === '') {
-      this.$router.push('/info');
-    }
-    this.$store.dispatch('getUserInfos');
   }
 }
 </script>
