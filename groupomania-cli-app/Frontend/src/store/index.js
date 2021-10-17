@@ -10,12 +10,10 @@ const store = createStore({
     state : {
         status : '',
         user : {
-            result : [],
+            userId : '',
             token : '',
         },
         userInfos : {
-            mail : '',
-            pass : '',
             lname : '',
             fname : '',
         },
