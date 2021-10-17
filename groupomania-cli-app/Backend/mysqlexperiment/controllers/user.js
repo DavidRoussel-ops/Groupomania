@@ -19,6 +19,7 @@ exports.signup = (req, res) => {
                     console.log("1 utilisateur enregistrer");
                     db.query("SELECT * FROM utilisateur WHERE mail = '${req.body.mail}'", function (err, result) {
                         return res.status(201).json({
+                            userId : result,
                             token: jwt.sign(
                                 { userId: result[0] },
                                 jwtSecurity,
@@ -43,8 +44,9 @@ exports.login = (req, res) => {
                     } else {
                         console.log("Utilisateur connecté !");
                         return res.status(200).json({
+                            userId : result,
                             token: jwt.sign(
-                                { userId: result[0].id },
+                                { userId: result[0]._id },
                                 jwtSecurity,
                                 { expiresIn: '24h' }
                             ),
