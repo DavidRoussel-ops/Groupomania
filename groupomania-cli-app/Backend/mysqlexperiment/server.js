@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const moduleSecurity = require('./Security/module');
+const cors = require('cors')
 const path = require('path');
 const app = express();
 
@@ -19,6 +20,12 @@ app.use(((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 }));
+
+app.use(cors());
+
+app.get('/user', function (req, res) {
+    res.json({ message : 'Cors ok !'})
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
