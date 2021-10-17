@@ -3,16 +3,35 @@
     <div class="conteneur-page">
       <div class="contenue">
         <img alt="log-left" class="font-left" src="../assets/icon-left-font-monochrome-black.png">
+        <p>{{ user.mail }} {{ user.lname }} {{ user.fname }}</p>
+        <button @click="logout">Déconnexion</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'groupomania',
   mounted() {
     console.log(this.$store.state.user);
+    if (this.$store.state.user.userId === '') {
+      this.$router.push('/');
+      return ;
+    }
+    this.$store.dispatch('getUserInfos');
+  },
+  computed : {
+    ...mapState({
+      user : 'userInfos',
+    })
+  },
+  methods : {
+    logout : function (){
+      this.$store.commit('logout');
+      this.$router.push('/');
+    }
   }
 }
 </script>
