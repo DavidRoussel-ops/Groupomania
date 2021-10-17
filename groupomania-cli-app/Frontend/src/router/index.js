@@ -11,7 +11,8 @@ const routes = [
   {
     path: '/info',
     name: 'Groupomania',
-    component: groupomania
+    component: groupomania,
+    props : true
   },
 ]
 
