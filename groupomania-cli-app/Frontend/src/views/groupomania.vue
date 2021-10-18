@@ -3,7 +3,8 @@
     <div class="conteneur-page">
       <div class="contenue">
         <img alt="log-left" class="font-left" src="../assets/icon-left-font-monochrome-black.png">
-        <p>{{ user.mail }} {{ user.lname }} {{ user.fname }}</p>
+        <p> {{ lname }} {{ fname }}</p>
+        <p id="user"></p>
         <button @click="logout">Déconnexion</button>
       </div>
     </div>
@@ -14,13 +15,16 @@
 import { mapState } from 'vuex'
 export default {
   name: 'groupomania',
+  data : function () {
+
+  },
   mounted() {
     console.log(this.$store.state.user);
     if (this.$store.state.user.userId === '') {
       this.$router.push('/');
       return ;
     }
-    this.$store.dispatch('getUserInfos');
+    this.$store.dispatch('showUserById');
   },
   computed : {
     ...mapState({
