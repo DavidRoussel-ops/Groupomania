@@ -9,7 +9,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/info',
+    path: '/id',
     name: 'Groupomania',
     component: groupomania,
     props : true
