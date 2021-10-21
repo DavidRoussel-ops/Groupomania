@@ -6,7 +6,7 @@ const instance = axios.create({
     baseURL : 'http://localhost:3000/user',
 });
 
-let user = localStorage.getItem('user');
+/*let user = localStorage.getItem('user');
 if (!user) {
     user = {
         userId : '',
@@ -23,13 +23,15 @@ if (!user) {
         };
     }
 
-}
+}*/
 
 const store = createStore({
     state : {
         status : '',
-        user : user,
-        userInfos : localStorage.getItem('user', JSON.stringify(user.userId)),
+        user : {
+            userId : '',
+            token : '',
+        },
     },
     mutations : {
         setStatus : function (state, status) {
@@ -37,7 +39,7 @@ const store = createStore({
         },
         logUser : function (state, user) {
             instance.defaults.headers.common['Authorization'] = user.token;
-            localStorage.setItem('user', JSON.stringify(user.userId[0]));
+            //localStorage.setItem('user', JSON.stringify(user.userId[0]));
             state.user = user;
         },
         userInfos: function (state, userInfos) {
@@ -84,18 +86,17 @@ const store = createStore({
                     });
             });
         },
-        showUserById: ({commit}) => {
-            instance.get('/info', {
+        showUserById: ({ commit}) => {
+            instance.get('/',{
                 headers : {
                     'Content-Type' : 'application/json',
-                    Authorization : `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQ1Njk0MjgsImV4cCI6MTYzNDY1NTgyOH0.7jId7k9qp6ESDVd4kZOfx79uLuvgUEuz_sPLfckzjFk`,
+                    Authorization : `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzQ3Mjc0MTcsImV4cCI6MTYzNDgxMzgxN30.piXS6uwPQ6uSLSZ3Xdh6nCeqMLxJ-ThtIlVoDujflAM`,
                 }
             })
-                .then(function (response) {
+                .then(function () {
                     //commit('setStatus', 'userInfos');
                     //this.user = response.data;
-                    commit('userInfos', localStorage.getItem(JSON.stringify(user.userId)));
-                    console.log(response);
+                    commit('userInfos');
                 })
                 .catch(function (erreur) {
                     console.log(erreur);
