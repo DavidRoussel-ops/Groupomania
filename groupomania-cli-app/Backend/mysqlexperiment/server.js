@@ -10,6 +10,9 @@ require('dotenv').config();
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 const comRoutes = require('./routes/com');
+let corsOption = {
+    origin : "http://localhost:8080"
+}
 
 const port = process.env.PORT;
 
@@ -21,7 +24,7 @@ app.use(((req, res, next) => {
     next();
 }));
 
-app.use(cors());
+app.use(cors(corsOption));
 
 app.get('/user', function (req, res) {
     res.json({ message : 'Cors ok !'})
