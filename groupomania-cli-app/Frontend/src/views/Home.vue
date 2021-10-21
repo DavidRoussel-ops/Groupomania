@@ -32,7 +32,7 @@ export default {
   mounted() {
     console.log(this.$store.state.user);
     if (this.$store.state.user.userId !== '') {
-      this.$router.push('/info');
+      this.$router.push('/');
       return;
     }
   },
@@ -52,7 +52,7 @@ export default {
         mail: this.mail,
         pass: this.pass,
       }).then(function () {
-        self.$router.push('/info');
+        self.$router.push('/');
       }).catch(function (error) {
         console.log(error)
       })
