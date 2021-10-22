@@ -9,7 +9,6 @@ require('dotenv').config();
 
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
-const comRoutes = require('./routes/com');
 let corsOption = {
     origin : "http://localhost:8080"
 }
@@ -26,16 +25,11 @@ app.use(((req, res, next) => {
 
 app.use(cors(corsOption));
 
-app.get('/user', function (req, res) {
-    res.json({ message : 'Cors ok !'})
-});
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 
 app.use('/post', postRoutes);
 app.use('/user', userRoutes);
-app.use('/com', comRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.listen(port, function () {
