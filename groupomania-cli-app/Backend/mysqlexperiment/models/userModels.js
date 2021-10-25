@@ -8,7 +8,7 @@ class userModels {
     constructor() {
     }
     signup(sqlInserts) {
-        let insertSql = `INSERT INTO utilisateur VALUES (NULL, ?,?,?,?, FALSE)`;
+        let insertSql = `INSERT INTO utilisateurs VALUES (NULL, ?,?,?,?, FALSE)`;
         insertSql = mysql.format(insertSql, sqlInserts);
         return new Promise(((resolve, reject) => {
             db.query(insertSql, function (err, result){
@@ -18,7 +18,7 @@ class userModels {
         }))
     }
     login(sqlInserts, pass){
-        let sql = `SELECT * FROM utilisateur WHERE mail= ?`;
+        let sql = `SELECT * FROM utilisateurs WHERE mail= ?`;
         sql = mysql.format(sql, sqlInserts);
         return new Promise((resolve, reject) => {
             db.query(sql, function (err, result) {
@@ -44,7 +44,7 @@ class userModels {
         })
     }
     showUser(sqlInserts) {
-        let selectSql = `SELECT mail, lname, fname FROM utilisateur WHERE id = ?`;
+        let selectSql = `SELECT mail, lname, fname FROM utilisateurs WHERE id = ?`;
         selectSql = mysql.format(selectSql, sqlInserts);
         return new Promise((resolve, reject) => {
             db.query(selectSql, function (err, result) {
@@ -54,7 +54,7 @@ class userModels {
         })
     }
     modifyUser(sqlInserts) {
-        let updateSql = `UPDATE utilisateur SET mail = ?, lname = ?, fname = ? WHERE id = ?`;
+        let updateSql = `UPDATE utilisateurs SET mail = ?, lname = ?, fname = ? WHERE id = ?`;
         updateSql = mysql.format(updateSql, sqlInserts);
         return new Promise((resolve, reject) => {
             db.query(updateSql, function (err, result) {
@@ -64,7 +64,7 @@ class userModels {
         })
     }
     delUser(sqlInserts) {
-        let deleteSql = `DELETE FROM utilisateur WHERE id = ?`;
+        let deleteSql = `DELETE FROM utilisateurs WHERE id = ?`;
         deleteSql = mysql.format(deleteSql, sqlInserts);
         return new Promise((resolve, reject) => {
             db.query(deleteSql, function (err, result){
