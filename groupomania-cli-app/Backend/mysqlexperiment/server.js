@@ -28,8 +28,8 @@ app.use(cors(corsOption));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 
-app.use('/post', postRoutes);
-app.use('/user', userRoutes);
+app.use('/posts', postRoutes);
+app.use('/users', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.listen(port, function () {
